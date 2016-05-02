@@ -5,6 +5,10 @@ var _ = require('lodash')
 var workbook = xlsx.readFile('./parser/Cards For Humanity.xlsx')
 var blackCards = parseCards(workbook.Sheets['Black'], 'black')
 var whiteCards = parseCards(workbook.Sheets['White'], 'white')
+
+fs.writeFileSync('./cards/black.json', JSON.stringify(blackCards, null, 2))
+fs.writeFileSync('./cards/white.json', JSON.stringify(whiteCards, null, 2))
+
 /**
  * Parses an xlsx object and returns an array of card objects of one type
  * @param  {Object} sheet accesed via the Sheets property of a parsed xlsx object
