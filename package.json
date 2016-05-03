@@ -4,8 +4,9 @@
   "description": "A RESTful API that serves Cards Against Humanity",
   "main": "index.js",
   "scripts": {
-    "test": "tape './parser/*.test.js' | tap-difflet",
-    "lint": "standard | standard-tap"
+    "test": "tape 'test.js' | tap-difflet",
+    "lint": "standard | standard-tap",
+    "serve": "nodemon index.js 4000"
   },
   "repository": {
     "type": "git",
@@ -26,9 +27,11 @@
   "dependencies": {
     "koa": "^1.2.0",
     "koa-route": "^2.4.2",
+    "koa-router": "^5.4.0",
     "lodash": "^4.11.1"
   },
   "devDependencies": {
+    "nodemon": "^1.9.2",
     "standard": "^6.0.8",
     "standard-tap": "^1.0.1",
     "tap-difflet": "^0.4.0",

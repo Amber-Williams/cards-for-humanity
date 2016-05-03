@@ -1,24 +1,25 @@
-var koa = require('koa')
-var app = koa()
-var fs = require('fs')
+'use strict'
+const app = require('koa')()
+const router = require('koa-router')()
+const Cards = require('./controllers/cards.js')
 
-var blackCards = JSON.parse(fs.readFileSync('./cards/black.json').toString())
+const port = process.argv[2]
 
-// response time
-app.use(function *(next) {
-  if (this.path === '/') {
+router
+  .get('/', function * (next) {
     this.body = 'Welcome to Cards For Humanity!'
-  } else {
-    yield next
-  }
-})
+  })
+  .get('/:color/', function * (next) {
+    var { color } = this.params
+    this.body = yield Cards.getAll(color)
+  })
+  .get('/:color/:amount', function * (next) {
+    var { color, amount } = this.params
+    this.body = yield Cards.getAmount(color, amount)
+  })
 
-app.use(function *(next) {
-  if (this.path === '/black') {
-    this.body = blackCards[69].text
-  }
-})
+app.use(router.routes())
 
 // listen on port 3000
-console.log('Listening on port 3000')
-app.listen(3000)
+console.log(`Listening on "http://localhost:${port}"`)
+app.listen(port)

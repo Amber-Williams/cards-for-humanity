@@ -1,3 +1,4 @@
+'use strict'
 var xlsx = require('xlsx')
 var fs = require('fs')
 var _ = require('lodash')
